@@ -11,18 +11,32 @@ export default function NotaEditor() {
   const [modalVisivel, setModalVisivel] = useState(false);
 
   async function salvaNota() {
+    const novoId = await geraId();
+
     const umaNota = {
-      id: "1",
+      id: novoId.toString(),
       texto: texto
     };
 
+    console.log(umaNota);
     await AsyncStorageLib.setItem(umaNota.id, umaNota.texto);
+    
     mostraNota();
 
   }
 
   async function mostraNota() {
     alert(await AsyncStorageLib.getItem("1"));
+  }
+
+  async function geraId() {
+    const allKeys = await AsyncStorageLib.getAllKeys();
+    console.log(allKeys);
+
+    if (allKeys <= 0) {
+      return 1;
+    }
+    return allKeys.length + 1;
   }
 
   return (
