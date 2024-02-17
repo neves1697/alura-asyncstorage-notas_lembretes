@@ -6,7 +6,7 @@ import estilos from "../../styles/NotaEditorStyle";
 //import { useAsyncStorage } from "@react-native-async-storage/async-storage";
 import AsyncStorageLib, { useAsyncStorage } from "@react-native-async-storage/async-storage";
 
-export default function NotaEditor() {
+export default function NotaEditor({ mostraNotas }) {
 
   const [texto, setTexto] = useState("");
   const [modalVisivel, setModalVisivel] = useState(false);
@@ -21,13 +21,8 @@ export default function NotaEditor() {
 
     console.log(umaNota);
     await AsyncStorageLib.setItem(umaNota.id, umaNota.texto);
+    mostraNotas();
 
-    mostraNota();
-
-  }
-
-  async function mostraNota() {
-    alert(await AsyncStorageLib.getItem("1"));
   }
 
   async function geraId() {
